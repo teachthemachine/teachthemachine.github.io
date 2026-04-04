@@ -1,0 +1,106 @@
+.drop-zone {
+  min-height: 200px;
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--color-border);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.drop-zone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.drop-zone-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.drop-zone-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: 0 var(--space-2);
+}
+
+.drop-zone-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.drop-zone-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+  min-height: 80px;
+}
+
+/* Safe variant */
+.drop-zone.safe {
+  border-color: rgba(0, 212, 170, 0.2);
+  background: rgba(0, 212, 170, 0.03);
+}
+
+.drop-zone.safe .drop-zone-title {
+  color: var(--color-primary);
+}
+
+.drop-zone.safe .drop-zone-count {
+  background: var(--color-primary-dim);
+  color: var(--color-primary);
+}
+
+/* Suspicious variant */
+.drop-zone.suspicious {
+  border-color: rgba(255, 77, 106, 0.2);
+  background: rgba(255, 77, 106, 0.03);
+}
+
+.drop-zone.suspicious .drop-zone-title {
+  color: var(--color-danger);
+}
+
+.drop-zone.suspicious .drop-zone-count {
+  background: var(--color-danger-dim);
+  color: var(--color-danger);
+}
+
+/* Drag over state */
+.drop-zone.drag-over {
+  border-style: solid;
+  transform: scale(1.01);
+}
+
+.drop-zone.safe.drag-over {
+  border-color: var(--color-primary);
+  background: rgba(0, 212, 170, 0.08);
+  box-shadow: inset 0 0 30px var(--color-primary-glow);
+}
+
+.drop-zone.suspicious.drag-over {
+  border-color: var(--color-danger);
+  background: rgba(255, 77, 106, 0.08);
+  box-shadow: inset 0 0 30px var(--color-danger-glow);
+}

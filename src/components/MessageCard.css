@@ -1,0 +1,99 @@
+.message-card {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  cursor: grab;
+  user-select: none;
+  transition: all var(--transition-base);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  position: relative;
+  touch-action: none;
+}
+
+.message-card:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.message-card:active {
+  cursor: grabbing;
+}
+
+.message-card.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.message-card.sorted {
+  cursor: pointer;
+}
+
+.message-card.sorted-safe {
+  border-color: rgba(0, 212, 170, 0.3);
+  background: rgba(0, 212, 170, 0.08);
+}
+
+.message-card.sorted-suspicious {
+  border-color: rgba(255, 77, 106, 0.3);
+  background: rgba(255, 77, 106, 0.08);
+}
+
+.message-card-text {
+  word-break: break-word;
+}
+
+.message-card-remove {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+
+.message-card:hover .message-card-remove {
+  opacity: 1;
+}
+
+.message-card-remove:hover {
+  background: var(--color-danger-dim);
+  color: var(--color-danger);
+}
+
+.message-card-badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: var(--space-2);
+}
+
+.message-card-badge.safe {
+  background: var(--color-primary-dim);
+  color: var(--color-primary);
+}
+
+.message-card-badge.suspicious {
+  background: var(--color-danger-dim);
+  color: var(--color-danger);
+}
