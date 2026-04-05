@@ -8,7 +8,7 @@ interface HeaderProps {
 export function Header({ onLogoClick }: HeaderProps) {
   return (
     <header className="header">
-      <a className="header-logo" onClick={onLogoClick} href="#">
+      <a className="header-logo" href="#" onClick={(e) => { e.preventDefault(); onLogoClick?.(); }}>
         <div className="header-icon">TM</div>
         <span className="header-title">
           <span className="header-title-accent">Teach</span>TheMachine

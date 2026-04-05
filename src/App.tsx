@@ -40,7 +40,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header onLogoClick={() => setActiveActivity(null)} />
       <main className="app-main">
         {renderActivity()}
       </main>
