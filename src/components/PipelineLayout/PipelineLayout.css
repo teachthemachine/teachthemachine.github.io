@@ -1,0 +1,137 @@
+.pipeline-workspace {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--header-height));
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ---- Stepper Header ---- */
+.pipeline-stepper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-5) var(--space-6);
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  position: relative;
+  transition: color var(--transition-base);
+}
+
+.pipeline-step.completed {
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.pipeline-step.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  border: 2px solid transparent;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.pipeline-step.completed .step-number {
+  background: var(--color-safe);
+  color: white;
+}
+
+.pipeline-step.active .step-number {
+  background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.step-connector {
+  width: 48px;
+  height: 2px;
+  background: var(--color-border);
+  margin-left: var(--space-3);
+  margin-right: var(--space-1);
+  border-radius: var(--radius-full);
+  transition: background-color var(--transition-base);
+}
+
+.pipeline-step.completed .step-connector {
+  background: var(--color-primary);
+}
+
+/* ---- Main Content ---- */
+.pipeline-content-container {
+  flex: 1;
+  position: relative;
+  /* Do NOT set overflow:hidden here — it would clip rounded card corners */
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--space-5);
+  min-height: 0; /* Required for flex children to scroll */
+}
+
+.pipeline-content-viewport {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* clips at viewport, but children get their own scroll */
+}
+
+/* Activity panel fills viewport */
+.pipeline-content-viewport > .activity-panel {
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+.pipeline-content-viewport > .activity-panel > .panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- Navigation Footer — floating pill tray ---- */
+.pipeline-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-4) var(--space-5) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .pipeline-stepper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .step-connector {
+    width: 2px;
+    height: 16px;
+    margin-left: 13px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}

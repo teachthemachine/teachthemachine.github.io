@@ -1,0 +1,64 @@
+@import '../../text-classifier/steps/CollectStep.css';
+
+/* Doodle-specific overrides for the center canvas column */
+.center-canvas {
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--space-5) var(--space-4);
+  gap: var(--space-4);
+}
+
+.doodle-canvas-wrapper {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  touch-action: none;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.doodle-canvas-wrapper:hover,
+.doodle-canvas-wrapper:active {
+  border-color: var(--color-primary);
+}
+
+.doodle-canvas-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  pointer-events: none;
+  font-family: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.doodle-sort-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* Doodle gallery inside bucket columns */
+.doodle-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  gap: var(--space-2);
+  padding: var(--space-1);
+}
+
+.doodle-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: white;
+  object-fit: contain;
+}

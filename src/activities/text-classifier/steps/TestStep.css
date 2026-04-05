@@ -1,0 +1,305 @@
+/* ============================================
+   Preview Panel — Right column (Test + Trick)
+   ============================================ */
+.preview-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+/* Tabs */
+.preview-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.preview-tab {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.preview-tab:hover {
+  color: var(--color-text-secondary);
+}
+
+.preview-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* Preview body */
+.preview-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Disabled overlay */
+.preview-disabled {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.preview-disabled-icon {
+  font-size: 2rem;
+  opacity: 0.5;
+}
+
+.preview-disabled-text {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+/* Test input */
+.test-input-group {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.test-input {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+.test-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.test-input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+/* Suggestion chips */
+.test-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.test-suggestion {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.test-suggestion:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+/* Result card */
+.test-result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-bg-raised);
+  border-radius: var(--radius-md);
+  animation: slideUp 0.25s ease;
+}
+
+.test-result-label {
+  font-weight: 700;
+  font-size: var(--text-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.test-result-label.real { color: var(--color-safe); }
+.test-result-label.suspicious { color: var(--color-danger); }
+
+.test-result-message {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* Confidence bars */
+.confidence-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.confidence-category {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  width: 90px;
+  color: var(--color-text);
+}
+
+.confidence-track {
+  flex: 1;
+  height: 8px;
+  background: var(--color-bg);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease;
+}
+
+.confidence-fill.real { background: var(--color-safe); }
+.confidence-fill.suspicious { background: var(--color-danger); }
+
+.confidence-pct {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  width: 40px;
+  text-align: right;
+}
+
+/* Test history */
+.test-history {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.test-history-title {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.test-history-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-raised);
+}
+
+.test-history-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.test-history-badge.real {
+  background: var(--color-safe-soft);
+  color: var(--color-safe);
+}
+.test-history-badge.suspicious {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+/* Trick tab */
+.trick-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.trick-challenge {
+  padding: var(--space-4);
+  background: var(--color-warning-soft);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-warning);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: var(--leading-relaxed);
+}
+
+.trick-score {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.trick-stat {
+  text-align: center;
+}
+
+.trick-stat-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+}
+
+.trick-stat-value.tricked { color: var(--color-safe); }
+.trick-stat-value.caught { color: var(--color-danger); }
+
+.trick-stat-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.trick-result {
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-align: center;
+  animation: slideUp 0.2s ease;
+}
+
+.trick-result.success {
+  background: var(--color-safe-soft);
+  color: var(--color-safe);
+}
+
+.trick-result.fail {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.trick-select {
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}

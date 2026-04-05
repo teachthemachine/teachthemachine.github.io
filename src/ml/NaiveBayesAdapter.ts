@@ -1,28 +1,33 @@
-import type { ModelAdapter, TrainingSample, PredictionResult, ModelStats } from '../types/activity';
+import type { ModelStats } from '../types/activity';
 import { NaiveBayesClassifier } from './NaiveBayesClassifier';
 
 /**
- * Adapter wrapping NaiveBayesClassifier to conform to ModelAdapter interface.
- * This allows the activity to use the classifier through a standard API,
- * and future activities can swap in different model types.
+ * Adapter wrapping NaiveBayesClassifier.
+ * Provides a simple synchronous API used directly by activity panels.
  */
-export class NaiveBayesAdapter implements ModelAdapter<string, PredictionResult[]> {
+export class NaiveBayesAdapter {
   private classifier: NaiveBayesClassifier;
 
   constructor() {
     this.classifier = new NaiveBayesClassifier();
   }
 
-  async train(data: TrainingSample<string>[]): Promise<void> {
-    const formatted = data.map(d => ({
-      text: d.input,
-      label: d.label,
-    }));
-    this.classifier.train(formatted);
+  train(data: { text: string; label: string }[]): void {
+    this.classifier.train(data);
   }
 
-  async predict(input: string): Promise<PredictionResult[]> {
-    return this.classifier.predict(input);
+  predict(input: string): {
+    label: string;
+    confidence: number;
+    probabilities: { label: string; probability: number }[];
+  } {
+    const results = this.classifier.predict(input);
+    const top = results[0];
+    return {
+      label: top?.label ?? 'Unknown',
+      confidence: top?.confidence ?? 0,
+      probabilities: results.map(r => ({ label: r.label, probability: r.confidence })),
+    };
   }
 
   reset(): void {
@@ -37,7 +42,10 @@ export class NaiveBayesAdapter implements ModelAdapter<string, PredictionResult[
     return this.classifier.getStats();
   }
 
-  /** Expose tokenizer for educational displays */
+  inspect(text: string) {
+    return this.classifier.inspect(text);
+  }
+
   tokenize(text: string): string[] {
     return this.classifier.tokenize(text);
   }

@@ -113,6 +113,61 @@ export class NaiveBayesClassifier {
       .sort((a, b) => b.confidence - a.confidence);
   }
 
+  /** Detailed breakdown for teaching element */
+  inspect(text: string) {
+    const tokens = this.tokenize(text);
+    const vocabSize = this.vocabulary.size;
+    
+    const classBreakdowns: Record<string, any> = {};
+    
+    for (const [label, classData] of this.classes) {
+      const priorProb = classData.documentCount / this.totalDocuments;
+      const priorLogProb = Math.log(priorProb);
+      
+      const tokenScores = [];
+      let totalLogProb = priorLogProb;
+      
+      for (const token of tokens) {
+        const wordCount = classData.wordCounts.get(token) || 0;
+        const smoothedProb = (wordCount + 1) / (classData.totalWords + vocabSize);
+        const logProb = Math.log(smoothedProb);
+        
+        totalLogProb += logProb;
+        tokenScores.push({
+          token,
+          count: wordCount,
+          prob: smoothedProb,
+          logProb
+        });
+      }
+      
+      classBreakdowns[label] = {
+        priorProb,
+        priorLogProb,
+        tokenScores,
+        totalLogProb
+      };
+    }
+    
+    // Normalize logic exactly as predict
+    const maxLog = Math.max(...Object.values(classBreakdowns).map((b: any) => b.totalLogProb));
+    let sumExp = 0;
+    for (const label in classBreakdowns) {
+      const b = classBreakdowns[label];
+      b.exp = Math.exp(b.totalLogProb - maxLog);
+      sumExp += b.exp;
+    }
+    
+    for (const label in classBreakdowns) {
+      classBreakdowns[label].finalConfidence = classBreakdowns[label].exp / sumExp;
+    }
+
+    return {
+      tokens,
+      classBreakdowns
+    };
+  }
+
   /** Get the top N most distinctive words per class */
   getTopFeatures(n: number = 8): Record<string, { word: string; score: number }[]> {
     const result: Record<string, { word: string; score: number }[]> = {};
