@@ -95,9 +95,7 @@ export class AudioFeatureExtractor {
     const timeData = new Float32Array(bufferLength);
     const freqData = new Float32Array(this.analyser.frequencyBinCount);
 
-    // Collect multiple snapshots over the duration and average
-    const snapshots: Float32Array[] = [];
-    const freqSnapshots: Float32Array[] = [];
+    const snapshots: { time: Float32Array; freq: Float32Array; rms: number }[] = [];
     const interval = 100; // ms between snapshots
     const count = Math.floor(durationMs / interval);
 
@@ -105,23 +103,42 @@ export class AudioFeatureExtractor {
       await new Promise(r => setTimeout(r, interval));
       this.analyser!.getFloatTimeDomainData(timeData);
       this.analyser!.getFloatFrequencyData(freqData);
-      snapshots.push(new Float32Array(timeData));
-      freqSnapshots.push(new Float32Array(freqData));
+      const rms = computeRMS(timeData);
+      snapshots.push({
+        time: new Float32Array(timeData),
+        freq: new Float32Array(freqData),
+        rms
+      });
     }
+
+    // Isolate active frames: reject silence to prevent diluting the features
+    const maxRms = Math.max(...snapshots.map(s => s.rms));
+    const noiseFloor = Math.max(0.005, maxRms * 0.15); // Dynamic threshold: 15% of peak volume
+    let activeSnapshots = snapshots.filter(s => s.rms >= noiseFloor);
+    
+    // Fallback if everything was too quiet
+    if (activeSnapshots.length === 0) activeSnapshots = snapshots;
 
     // Average time domain for waveform display
     const avgTime = new Float32Array(bufferLength);
-    for (const snap of snapshots) {
-      for (let i = 0; i < bufferLength; i++) avgTime[i] += snap[i] / snapshots.length;
+    for (const snap of activeSnapshots) {
+      for (let i = 0; i < bufferLength; i++) avgTime[i] += snap.time[i] / activeSnapshots.length;
     }
 
     // Average frequency domain for spectral features
     const avgFreq = new Float32Array(freqData.length);
-    for (const snap of freqSnapshots) {
+    for (const snap of activeSnapshots) {
       for (let i = 0; i < freqData.length; i++) {
         // Convert dB to linear magnitude
-        avgFreq[i] += (10 ** (snap[i] / 20)) / freqSnapshots.length;
+        avgFreq[i] += (10 ** (snap.freq[i] / 20)) / activeSnapshots.length;
       }
+    }
+
+    // Normalize the frequency spectrum so overall volume differences 
+    // don't completely override the tonal shape
+    const maxFreqMag = Math.max(...Array.from(avgFreq));
+    if (maxFreqMag > 0) {
+      for (let i = 0; i < avgFreq.length; i++) avgFreq[i] /= maxFreqMag;
     }
 
     const sampleRate = this.audioContext.sampleRate;
@@ -129,8 +146,8 @@ export class AudioFeatureExtractor {
     return {
       rms: computeRMS(avgTime),
       zcr: computeZCR(avgTime),
-      spectralCentroid: computeSpectralCentroid(avgFreq, sampleRate) / (sampleRate / 2), // normalize 0-1
-      spectralRolloff: computeSpectralRolloff(avgFreq, sampleRate) / (sampleRate / 2),    // normalize 0-1
+      spectralCentroid: computeSpectralCentroid(avgFreq, sampleRate) / (sampleRate / 2),
+      spectralRolloff: computeSpectralRolloff(avgFreq, sampleRate) / (sampleRate / 2),
       waveform: avgTime,
     };
   }
