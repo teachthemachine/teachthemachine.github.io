@@ -153,6 +153,25 @@ export function DoodleTrainStep({ model, examples, isTrained, onTrained }: Doodl
             </div>
           </div>
           
+          <div className="tc-mapped-gallery" style={{ marginTop: 'var(--space-4)', width: '100%' }}>
+            <h4 style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-2)' }}>
+              What the model saw:
+            </h4>
+            <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap', justifyContent: 'center' }}>
+              {examples.map(ex => (
+                <div key={ex.id} style={{ 
+                  width: '40px', height: '40px', 
+                  borderRadius: 'var(--radius-sm)', 
+                  border: `2px solid ${ex.label === 'Circle' ? 'var(--color-primary)' : 'var(--color-warning)'}`,
+                  background: 'white',
+                  overflow: 'hidden'
+                 }}>
+                  <img src={ex.dataUrl} alt={ex.label} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </div>
+              ))}
+            </div>
+          </div>
+          
           <button className="btn" onClick={handleTrain} style={{ marginTop: 'var(--space-4)' }}>
             <span className="material-symbols-rounded">refresh</span> Retrain Map
           </button>

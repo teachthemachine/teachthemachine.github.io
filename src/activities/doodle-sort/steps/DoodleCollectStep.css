@@ -10,8 +10,8 @@
 
 .doodle-canvas-wrapper {
   position: relative;
-  width: 220px;
-  height: 220px;
+  width: 280px;
+  height: 280px;
   border: 2px dashed var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
