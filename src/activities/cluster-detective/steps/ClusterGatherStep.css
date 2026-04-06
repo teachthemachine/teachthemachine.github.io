@@ -1,0 +1,195 @@
+.cluster-gather {
+  display: flex;
+  height: 100%;
+  gap: var(--space-5);
+  padding: var(--space-4);
+  overflow: hidden;
+}
+
+/* ---- Sidebar ---- */
+.cluster-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow-y: auto;
+}
+
+.cluster-sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cluster-sidebar-section h3 {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.cluster-sidebar-hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: var(--leading-relaxed);
+}
+
+/* K selector */
+.k-selector {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.k-btn {
+  flex: 1;
+  padding: var(--space-2) var(--space-2);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.k-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.k-btn-active {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+/* Presets */
+.preset-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cluster-edit-row {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Counter */
+.cluster-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-bg-raised);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+}
+
+.counter-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.counter-lbl {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: var(--space-1);
+}
+
+.cluster-hint-warning {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-warning);
+  font-weight: 600;
+  background: var(--color-warning-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-3);
+  margin: 0;
+}
+
+/* ---- Canvas ---- */
+.cluster-canvas-outer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.cluster-canvas {
+  flex: 1;
+  position: relative;
+  background: var(--color-surface);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  cursor: crosshair;
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.cluster-canvas:hover {
+  border-color: var(--color-primary-medium);
+}
+
+.cluster-canvas-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.grid-line {
+  stroke: var(--color-border);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+/* Individual data point dot */
+.data-point {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  border: 2px solid var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Colored when cluster is assigned */
+.data-point[data-cluster="0"] { background: var(--color-primary); }
+.data-point[data-cluster="1"] { background: var(--color-danger); }
+.data-point[data-cluster="2"] { background: var(--color-safe); }
+.data-point[data-cluster="3"] { background: var(--color-accent); }
+
+.canvas-empty-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.canvas-caption {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0;
+  line-height: var(--leading-relaxed);
+}

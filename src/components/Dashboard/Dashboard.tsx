@@ -44,7 +44,6 @@ export function Dashboard({ onSelectActivity }: DashboardProps) {
           description="Draw quick doodles and train a neural network to tell them apart using computer vision."
           icon="draw"
           color="var(--color-warning)"
-          isNew={true}
           onClick={() => onSelectActivity('doodle-sort')}
         />
 
@@ -56,6 +55,28 @@ export function Dashboard({ onSelectActivity }: DashboardProps) {
           icon="build"
           color="var(--color-safe)"
           onClick={() => onSelectActivity('fix-the-model')}
+        />
+
+        <ActivityCard
+          id="cluster-detective"
+          title="Cluster Detective"
+          subtitle="Mission 5"
+          description="Drop dots on a map and let the machine find hidden groups without any labels."
+          icon="scatter_plot"
+          color="var(--color-primary)"
+          isNew={true}
+          onClick={() => onSelectActivity('cluster-detective')}
+        />
+
+        <ActivityCard
+          id="sound-sorter"
+          title="Sound Sorter"
+          subtitle="Mission 6"
+          description="Train an AI to hear the difference between a clap, a whistle, and your voice."
+          icon="equalizer"
+          color="var(--color-accent)"
+          isNew={true}
+          onClick={() => onSelectActivity('sound-sorter')}
         />
       </section>
     </div>

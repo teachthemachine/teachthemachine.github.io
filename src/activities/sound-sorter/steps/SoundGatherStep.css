@@ -1,0 +1,161 @@
+.sound-gather {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  overflow: hidden;
+}
+
+.mic-meter-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-bg-raised);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+}
+
+.mic-meter-bar .material-symbols-rounded {
+  color: var(--color-text-muted);
+}
+
+.mic-meter-fill-bg {
+  flex: 1;
+  height: 8px;
+  background: var(--color-surface);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.mic-meter-fill {
+  height: 100%;
+  background: var(--color-safe);
+  transition: width 0.1s ease-out;
+  border-radius: var(--radius-full);
+}
+
+.mic-status {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  min-width: 80px;
+}
+
+.sound-buckets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  flex: 1;
+  min-height: 0;
+}
+
+.sound-bucket {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 4px solid;
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  gap: var(--space-3);
+  box-shadow: var(--shadow-sm);
+  min-height: 0;
+}
+
+.bucket-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bucket-icon {
+  font-size: 24px;
+}
+
+.bucket-title {
+  flex: 1;
+  font-weight: 700;
+  font-size: var(--text-base);
+}
+
+.bucket-count {
+  font-weight: 800;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+.btn-record {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--record-color) 15%, transparent);
+  color: var(--record-color);
+  font-weight: 700;
+  border: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.btn-record:not(:disabled):hover {
+  background: color-mix(in srgb, var(--record-color) 25%, transparent);
+  transform: translateY(-1px);
+}
+
+.btn-record.recording {
+  background: var(--record-color);
+  color: white;
+  animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--record-color) 40%, transparent); }
+  70% { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.pulse {
+  animation: pulse-icon 1s infinite;
+}
+
+@keyframes pulse-icon {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.waveform-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+  overflow-y: auto;
+  padding-right: var(--space-1);
+}
+
+.mini-waveform {
+  background: var(--color-bg-raised);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  display: flex;
+  justify-content: center;
+}
+
+.waveform-canvas {
+  width: 100%;
+  height: 30px;
+}
+
+.btn-clear {
+  color: var(--color-danger);
+  border-color: var(--color-danger-soft);
+  background: var(--color-surface);
+}
+.btn-clear:hover {
+  background: var(--color-danger-soft);
+}
