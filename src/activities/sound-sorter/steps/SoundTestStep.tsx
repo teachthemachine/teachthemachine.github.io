@@ -20,6 +20,7 @@ export function SoundTestStep({ model, isTrained, extractor }: Props) {
   const [prediction, setPrediction] = useState<{ label: string; confidence: number; distances: any[] } | null>(null);
   const [isListening, setIsListening] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [isThinking, setIsThinking] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -42,11 +43,16 @@ export function SoundTestStep({ model, isTrained, extractor }: Props) {
     try {
       const features = await extractor.recordSample(1200);
       if (features) {
+        setIsRecording(false);
+        setIsThinking(true);
+        // Artificial delay for pedagogical effect
+        await new Promise(resolve => setTimeout(resolve, 1500));
         const result = model.predict(features);
         setPrediction(result);
       }
     } finally {
       setIsRecording(false);
+      setIsThinking(false);
     }
   };
 
@@ -71,10 +77,12 @@ export function SoundTestStep({ model, isTrained, extractor }: Props) {
         <button 
           className={`btn btn-primary listen-btn ${isRecording ? 'pulse-listen' : ''}`}
           onClick={handleTest}
-          disabled={!isListening || isRecording || !isTrained}
+          disabled={!isListening || isRecording || isThinking || !isTrained}
         >
           {isRecording ? (
             <><span className="material-symbols-rounded">graphic_eq</span> Listening...</>
+          ) : isThinking ? (
+            <><span className="material-symbols-rounded spinning">sync</span> Correlating...</>
           ) : (
              <><span className="material-symbols-rounded">hearing</span> Listen for Sound</>
           )}
@@ -82,13 +90,28 @@ export function SoundTestStep({ model, isTrained, extractor }: Props) {
 
         <div className="prediction-area">
           <AnimatePresence mode="wait">
-            {!prediction && !isRecording && (
+            {!prediction && !isRecording && !isThinking && (
               <motion.div 
                 key="empty"
                 className="prediction-empty"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               >
                 Waiting for sound...
+              </motion.div>
+            )}
+
+            {isThinking && (
+              <motion.div 
+                key="thinking"
+                className="prediction-empty"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                style={{ flexDirection: 'column', gap: 'var(--space-2)' }}
+              >
+                <div style={{ display: 'flex', gap: 'var(--space-2)', color: 'var(--color-primary)' }}>
+                  <span className="material-symbols-rounded spinning">memory</span>
+                  <strong>Extracting Features...</strong>
+                </div>
+                <span style={{ fontSize: 'var(--text-sm)' }}>Comparing numbers to memory via K-NN...</span>
               </motion.div>
             )}
             
