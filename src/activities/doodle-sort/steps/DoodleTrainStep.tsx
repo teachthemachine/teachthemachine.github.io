@@ -19,12 +19,20 @@ export function DoodleTrainStep({ model, examples, isTrained, onTrained }: Doodl
   const countB = examples.filter(e => e.label === 'Triangle').length;
   const canTrain = countA >= 2 && countB >= 2;
 
+  const [isLoaderReady, setIsLoaderReady] = useState(model.isReady);
+
   useEffect(() => {
-    model.load().catch(console.error);
+    if (model.isReady) {
+      setIsLoaderReady(true);
+      return;
+    }
+    model.load().then(() => {
+      setIsLoaderReady(true);
+    }).catch(console.error);
   }, [model]);
 
   const handleTrain = useCallback(async () => {
-    if (!canTrain || !model.isReady) return;
+    if (!canTrain || !isLoaderReady) return;
     setIsTraining(true);
     
     // Stage 1: Loading
@@ -66,7 +74,7 @@ export function DoodleTrainStep({ model, examples, isTrained, onTrained }: Doodl
     setIsTraining(false);
     setTrainingStage(5);
     onTrained();
-  }, [canTrain, examples, model, onTrained]);
+  }, [canTrain, examples, model, onTrained, isLoaderReady]);
 
   const stages = [
     { id: 1, text: `Feeding ${examples.length} doodles into computer vision filters...`, icon: 'image_search' },
@@ -86,9 +94,9 @@ export function DoodleTrainStep({ model, examples, isTrained, onTrained }: Doodl
           <button
             className="btn btn-primary train-start-btn"
             onClick={handleTrain}
-            disabled={!canTrain || !model.isReady}
+            disabled={!canTrain || !isLoaderReady}
           >
-            {!model.isReady ? 'Loading Core AI...' : 'Train the Machine'}
+            {!isLoaderReady ? 'Loading Core AI...' : 'Train the Machine'}
           </button>
           {!canTrain && <p className="train-warning">Draw at least 2 shapes for each category first.</p>}
         </div>
