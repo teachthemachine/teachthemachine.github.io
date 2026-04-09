@@ -1,9 +1,10 @@
 .cluster-test {
   display: flex;
   height: 100%;
-  gap: var(--space-5);
+  gap: var(--space-4);
   padding: var(--space-4);
-  overflow: hidden;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .cluster-test-canvas-outer {
@@ -110,4 +111,30 @@
 .test-empty-state p {
   margin: 0;
   font-size: var(--text-sm);
+}
+
+@media (max-width: 900px) {
+  .cluster-test {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .cluster-test-info {
+    width: 100%;
+  }
+
+  .cluster-test-canvas-outer {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cluster-test {
+    padding: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .test-result-card {
+    padding: var(--space-3);
+  }
 }

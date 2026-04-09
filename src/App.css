@@ -1,11 +1,56 @@
 .app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
+}
+
+.app::before,
+.app::after {
+  content: '';
+  position: fixed;
+  inset: auto;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.45;
+  z-index: -1;
+}
+
+.app::before {
+  top: 6%;
+  left: -4%;
+  width: 280px;
+  height: 280px;
+  background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+}
+
+.app::after {
+  right: -3%;
+  bottom: 10%;
+  width: 340px;
+  height: 340px;
+  background: color-mix(in srgb, var(--color-accent) 18%, transparent);
 }
 
 .app-main {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-4) var(--space-4) 0;
+}
+
+@media (max-width: 900px) {
+  .app-main {
+    padding: var(--space-2) var(--space-2) 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-main {
+    padding: var(--space-1) var(--space-1) 0;
+  }
 }

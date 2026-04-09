@@ -6,8 +6,7 @@ type Theme = 'sunny' | 'midnight';
 function getInitialTheme(): Theme {
   const stored = localStorage.getItem('ttm-theme') as Theme | null;
   if (stored === 'sunny' || stored === 'midnight') return stored;
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'midnight';
-  return 'sunny';
+  return 'midnight';
 }
 
 export function ThemeToggle() {

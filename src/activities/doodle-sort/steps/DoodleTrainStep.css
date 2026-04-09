@@ -2,7 +2,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-2);
+  gap: 6px;
 }
 
 .doodle-train-class-chip {
@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  padding: 6px 10px;
   border-radius: var(--radius-full);
   border: 1px solid color-mix(in srgb, var(--doodle-color) 30%, var(--color-border));
   background: color-mix(in srgb, var(--doodle-color) 10%, white);
@@ -25,8 +25,8 @@
 
 .doodle-train-live {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 360px);
-  gap: var(--space-5);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: var(--space-4);
   align-items: start;
 }
 
@@ -43,7 +43,7 @@
 
 .doodle-vision-panel-complete {
   margin-top: var(--space-4);
-  width: min(100%, 980px);
+  width: min(100%, 900px);
   align-self: center;
 }
 
@@ -133,16 +133,16 @@
 .doodle-vision-gallery {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 180px));
-  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(130px, 160px));
+  gap: var(--space-2);
   justify-content: center;
 }
 
 .doodle-vision-gallery-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-3);
+  gap: var(--space-2);
+  padding: var(--space-2);
   background: white;
   border-radius: var(--radius-xl);
   border-top: 3px solid var(--doodle-color);
@@ -180,10 +180,15 @@
 @media (max-width: 960px) {
   .doodle-train-live {
     grid-template-columns: 1fr;
+    gap: var(--space-3);
   }
 
   .doodle-train-class-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .doodle-vision-panel {
+    padding: var(--space-3);
   }
 }
 
@@ -195,5 +200,36 @@
   .doodle-vision-active,
   .doodle-vision-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .doodle-vision-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  .doodle-vision-gallery-card {
+    padding: var(--space-2);
+  }
+
+  .train-intro h3 {
+    font-size: var(--text-xl);
+  }
+
+  .train-intro p {
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-height: 720px) {
+  .doodle-vision-panel {
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .doodle-vision-header h4 {
+    font-size: var(--text-sm);
+  }
+
+  .doodle-vision-header p {
+    font-size: var(--text-xs);
   }
 }

@@ -168,3 +168,49 @@
   font-style: italic;
   margin-top: var(--space-2);
 }
+
+@media (max-width: 600px) {
+  .sound-test-step {
+    align-items: stretch;
+  }
+
+  .test-interface {
+    padding: var(--space-4);
+    gap: var(--space-3);
+    max-width: 100%;
+  }
+
+  .test-interface h3 {
+    font-size: var(--text-base);
+  }
+
+  .listen-btn {
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-5);
+  }
+
+  .prediction-area {
+    min-height: 140px;
+    margin-top: var(--space-2);
+  }
+
+  .result-icon {
+    font-size: 32px;
+  }
+
+  .result-label {
+    font-size: var(--text-base);
+  }
+}
+
+@media (max-height: 700px) {
+  .test-interface {
+    padding: var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .prediction-area {
+    min-height: 120px;
+    margin-top: var(--space-2);
+  }
+}

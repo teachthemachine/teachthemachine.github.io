@@ -1,27 +1,35 @@
 @import '../../text-classifier/steps/CollectStep.css';
 
+/* ===== Layout shell ===== */
 .doodle-collect-layout {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-3);
   height: 100%;
-  padding: var(--space-4);
-  overflow: auto;
+  padding: var(--space-2);
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .doodle-collect-stage {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  padding: var(--space-5);
+  gap: var(--space-3);
+  padding: var(--space-4);
+  min-height: 0;
+  /* When the panel is shorter than header + arena, scroll here instead of painting over the class grid */
+  overflow-y: auto;
 }
 
+/* ===== Header ===== */
 .doodle-stage-header {
   display: flex;
   justify-content: space-between;
-  gap: var(--space-4);
+  gap: var(--space-3);
   align-items: flex-start;
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .doodle-stage-kicker {
@@ -35,168 +43,257 @@
 
 .doodle-stage-header h3 {
   margin: 0;
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
 }
 
 .doodle-stage-progress {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  padding: 6px var(--space-3);
   border-radius: var(--radius-full);
   background: var(--color-primary-soft);
   color: var(--color-primary);
   font-weight: 700;
   white-space: nowrap;
+  font-size: var(--text-sm);
 }
 
+/* ===== Arena (cross layout — reference: pads tucked under canvas) ===== */
 .doodle-stage-arena {
-  display: grid;
-  grid-template-columns: 130px minmax(280px, 1fr) 130px;
-  grid-template-areas:
-    ". up ."
-    "left center right"
-    ". down .";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: var(--space-3);
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  flex: 1 1 auto;
+  justify-content: flex-start;
+  min-width: 0;
+  min-height: 0;
+}
+
+.doodle-arena-cross-surface {
+  width: 100%;
+  padding: var(--space-4) var(--space-3);
+  border-radius: var(--radius-2xl);
+  background: color-mix(in srgb, var(--color-border) 18%, var(--color-bg));
+  border: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
+}
+
+.doodle-arena-cross {
+  --doodle-cross-size: min(280px, 72vw);
+  display: grid;
+  grid-template-columns: auto var(--doodle-cross-size) auto;
+  grid-template-rows: auto var(--doodle-cross-size) auto;
   align-items: center;
   justify-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: 100%;
 }
 
-.doodle-sort-target {
-  width: 100%;
-  border: 2px solid color-mix(in srgb, var(--doodle-color) 30%, var(--color-border));
+/* Launch pads: sit under canvas edges (reference mock) */
+.doodle-cross-pad {
+  border: 1px solid color-mix(in srgb, var(--doodle-color) 52%, transparent);
   border-radius: var(--radius-xl);
-  background: color-mix(in srgb, var(--doodle-color) 8%, white);
+  background: color-mix(in srgb, var(--doodle-color) 38%, var(--color-surface));
   color: var(--doodle-color);
-  padding: var(--space-3);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+  box-shadow:
+    0 2px 10px color-mix(in srgb, var(--doodle-color) 22%, transparent),
+    0 1px 3px color-mix(in srgb, var(--color-text) 8%, transparent);
+  cursor: pointer;
+  transition:
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast),
+    filter var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+  z-index: 1;
 }
 
-.doodle-sort-target:hover:not(:disabled) {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: var(--shadow-md);
+.doodle-cross-pad:hover:not(:disabled) {
+  filter: brightness(1.04) saturate(1.05);
+  background: color-mix(in srgb, var(--doodle-color) 48%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--doodle-color) 68%, transparent);
+  box-shadow:
+    0 4px 16px color-mix(in srgb, var(--doodle-color) 32%, transparent),
+    0 2px 6px color-mix(in srgb, var(--color-text) 10%, transparent);
 }
 
-.doodle-sort-target:disabled {
-  opacity: 0.45;
+.doodle-cross-pad:disabled {
+  opacity: 0.42;
   cursor: not-allowed;
 }
 
-.doodle-sort-target-up { grid-area: up; }
-.doodle-sort-target-left { grid-area: left; }
-.doodle-sort-target-right { grid-area: right; }
-.doodle-sort-target-down { grid-area: down; }
-
-.doodle-sort-target-main {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  font-weight: 700;
-}
-
-.doodle-sort-hotkey {
-  background: white;
-  border-color: color-mix(in srgb, var(--doodle-color) 30%, var(--color-border));
-  color: var(--doodle-color);
-}
-
-.doodle-sort-target-icon,
-.doodle-sort-target-arrow {
-  font-size: 20px;
-}
-
-.doodle-sort-target-count {
-  min-width: 28px;
-  height: 28px;
+.doodle-cross-pad-up,
+.doodle-cross-pad-down {
+  grid-column: 2;
   display: inline-flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-full);
-  background: white;
-  color: var(--doodle-color);
-  font-family: var(--font-mono);
-  font-weight: 700;
+  gap: 10px;
+  padding: 10px 20px;
+  min-width: min(220px, 85vw);
 }
 
-.doodle-canvas-stage {
-  grid-area: center;
-  display: flex;
+.doodle-cross-pad-up {
+  grid-row: 1;
+  margin-bottom: calc(-1 * var(--space-3));
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+.doodle-cross-pad-down {
+  grid-row: 3;
+  margin-top: calc(-1 * var(--space-3));
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+}
+
+.doodle-cross-pad-left,
+.doodle-cross-pad-right {
+  grid-row: 2;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
-  width: 100%;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 12px;
+  min-width: 56px;
+}
+
+.doodle-cross-pad-left {
+  grid-column: 1;
+  margin-right: calc(-1 * var(--space-3));
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+.doodle-cross-pad-right {
+  grid-column: 3;
+  margin-left: calc(-1 * var(--space-3));
+  border-top-left-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+}
+
+.doodle-cross-pad-arrow {
+  font-size: 22px;
+  font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+  color: var(--doodle-color);
+  opacity: 0.98;
+}
+
+.doodle-cross-pad-icon {
+  font-size: 26px;
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  color: var(--doodle-color);
+  opacity: 0.98;
+}
+
+.doodle-cross-pad-count {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--doodle-color) 78%, var(--color-text));
+}
+
+.doodle-cross-canvas-cell {
+  grid-column: 2;
+  grid-row: 2;
+  z-index: 2;
+  position: relative;
+  width: var(--doodle-cross-size);
+  height: var(--doodle-cross-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .doodle-canvas-wrapper {
   position: relative;
-  width: min(100%, 360px);
+  width: 100%;
+  height: 100%;
+  max-width: var(--doodle-cross-size);
+  max-height: var(--doodle-cross-size);
   aspect-ratio: 1;
-  padding: var(--space-3);
+  padding: var(--space-2);
   border-radius: var(--radius-2xl);
-  background: linear-gradient(180deg, var(--color-bg-raised), white);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
+  background: white;
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  box-shadow:
+    0 12px 28px color-mix(in srgb, var(--color-text) 10%, transparent),
+    0 2px 6px color-mix(in srgb, var(--color-text) 6%, transparent);
+  flex-shrink: 0;
 }
 
 .doodle-canvas-wrapper.is-drawing {
-  box-shadow: 0 0 0 3px var(--color-primary-soft), var(--shadow-md);
+  box-shadow:
+    0 0 0 3px var(--color-primary-soft),
+    0 12px 28px color-mix(in srgb, var(--color-text) 12%, transparent);
 }
 
 .doodle-canvas {
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: calc(var(--radius-xl) - 2px);
-  border: 2px dashed var(--color-border);
+  border-radius: calc(var(--radius-xl) - 4px);
+  border: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
   background: white;
   cursor: crosshair;
   touch-action: none;
 }
 
 .doodle-canvas:hover {
-  border-color: var(--color-primary);
+  border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
 }
 
 .doodle-canvas-hint {
   position: absolute;
-  inset: var(--space-3);
+  inset: var(--space-4);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: var(--space-1);
-  color: var(--color-text-muted);
+  gap: var(--space-2);
+  /* Drawing surface stays white in all themes */
+  color: #3a3a3a;
   font-size: var(--text-sm);
   pointer-events: none;
   font-weight: 600;
   text-align: center;
-  padding: var(--space-6);
+  padding: var(--space-2);
+  line-height: 1.45;
+  opacity: 0.85;
 }
 
 .doodle-canvas-hint span {
   font-size: var(--text-xs);
   font-weight: 500;
+  max-width: 12rem;
+  line-height: 1.4;
+  color: #5c5c5c;
+  opacity: 1;
 }
 
+/* ===== Tip + Toolbar ===== */
 .doodle-stage-tip {
   margin: 0;
-  max-width: 420px;
+  max-width: 360px;
   text-align: center;
   color: var(--color-text-secondary);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
 }
 
 .doodle-stage-toolbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 
@@ -207,21 +304,24 @@
   text-align: center;
 }
 
+/* ===== Class gallery cards ===== */
 .doodle-class-grid {
+  flex-shrink: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .doodle-class-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-4);
+  gap: var(--space-2);
+  padding: var(--space-3);
   background: var(--color-surface);
   border-radius: var(--radius-xl);
   border-top: 4px solid var(--doodle-color);
   box-shadow: var(--shadow-sm);
+  min-height: 100px;
 }
 
 .doodle-class-card-header {
@@ -233,7 +333,7 @@
 
 .doodle-class-card-title {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-2);
   align-items: flex-start;
 }
 
@@ -255,9 +355,9 @@
 
 .doodle-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
-  gap: var(--space-2);
-  min-height: 64px;
+  grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+  gap: 4px;
+  min-height: 38px;
 }
 
 .doodle-thumb {
@@ -271,37 +371,217 @@
 
 .doodle-class-card .empty-bucket {
   margin: 0;
-  min-height: 64px;
-  padding: var(--space-4);
+  min-height: 38px;
+  padding: var(--space-2);
+  font-size: 11px;
+  flex: 0 0 auto;
 }
 
+/* ===== Short screens (laptop, iPad landscape) ===== */
+@media (max-height: 820px) {
+  .doodle-collect-stage {
+    padding: var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .doodle-stage-tip {
+    display: none;
+  }
+
+  .doodle-class-card-title p {
+    display: none;
+  }
+
+  .doodle-arena-cross {
+    --doodle-cross-size: min(220px, 32vh);
+  }
+
+  .doodle-cross-pad-up,
+  .doodle-cross-pad-down {
+    padding: 8px 14px;
+    min-width: min(200px, 80vw);
+  }
+
+  .doodle-cross-pad-left,
+  .doodle-cross-pad-right {
+    padding: 10px 8px;
+  }
+
+  .doodle-cross-pad-icon {
+    font-size: 22px;
+  }
+
+  .doodle-class-card {
+    padding: var(--space-2);
+    gap: 4px;
+    min-height: 80px;
+  }
+
+  .doodle-class-card-title h4 {
+    font-size: var(--text-sm);
+  }
+
+  .doodle-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+    gap: 3px;
+    min-height: 32px;
+  }
+
+  .doodle-stage-header h3 {
+    font-size: var(--text-base);
+  }
+
+  .doodle-stage-progress {
+    font-size: var(--text-xs);
+    padding: 4px var(--space-2);
+  }
+
+  .doodle-stage-toolbar-note {
+    display: none;
+  }
+}
+
+/* ===== Very short screens ===== */
+@media (max-height: 680px) {
+  .doodle-arena-cross {
+    --doodle-cross-size: min(180px, 28vh);
+  }
+
+  .doodle-cross-pad-up,
+  .doodle-cross-pad-down {
+    min-width: min(180px, 85vw);
+    gap: 8px;
+  }
+
+  .doodle-cross-pad-arrow {
+    font-size: 18px;
+  }
+
+  .doodle-cross-pad-icon {
+    font-size: 18px;
+  }
+
+  .doodle-cross-pad-count {
+    font-size: 13px;
+  }
+
+  .doodle-class-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .doodle-class-card {
+    min-height: auto;
+  }
+}
+
+/* ===== Medium width ===== */
 @media (max-width: 1100px) {
   .doodle-class-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .doodle-stage-header h3 {
+    font-size: var(--text-base);
+  }
 }
 
+/* ===== Narrow width (tablet portrait) ===== */
 @media (max-width: 900px) {
   .doodle-collect-layout {
-    padding: var(--space-3);
+    padding: var(--space-2);
+    gap: var(--space-2);
   }
 
   .doodle-collect-stage {
-    padding: var(--space-4);
+    padding: var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .doodle-stage-header {
+    flex-direction: column;
+    gap: var(--space-2);
   }
 
   .doodle-stage-arena {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "up"
-      "center"
-      "left"
-      "right"
-      "down";
+    max-width: 100%;
+    justify-content: flex-start;
   }
 
-  .doodle-sort-target {
-    max-width: 360px;
+  .doodle-arena-cross-surface {
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .doodle-arena-cross {
+    --doodle-cross-size: min(240px, 68vw);
+  }
+
+  .doodle-cross-pad-up,
+  .doodle-cross-pad-down {
+    min-width: min(240px, 88vw);
+  }
+
+  .doodle-cross-pad-left {
+    margin-right: calc(-1 * var(--space-2));
+  }
+
+  .doodle-cross-pad-right {
+    margin-left: calc(-1 * var(--space-2));
+  }
+
+  .doodle-cross-pad-up {
+    margin-bottom: calc(-1 * var(--space-2));
+  }
+
+  .doodle-cross-pad-down {
+    margin-top: calc(-1 * var(--space-2));
+  }
+
+  .doodle-class-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .doodle-class-card-title h4 {
+    font-size: var(--text-sm);
+  }
+}
+
+/* ===== Phone width ===== */
+@media (max-width: 640px) {
+  .doodle-collect-layout {
+    padding: var(--space-1);
+    gap: var(--space-2);
+  }
+
+  .doodle-collect-stage {
+    padding: var(--space-2);
+  }
+
+  .doodle-stage-arena {
+    max-width: 100%;
+  }
+
+  .doodle-arena-cross {
+    --doodle-cross-size: min(200px, 72vw);
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .doodle-cross-pad-up,
+  .doodle-cross-pad-down {
+    min-width: min(200px, 90vw);
+    padding: 8px 12px;
+  }
+
+  .doodle-cross-pad-left,
+  .doodle-cross-pad-right {
+    padding: 10px 6px;
+    min-width: 48px;
+  }
+
+  .doodle-stage-tip,
+  .doodle-stage-toolbar-note {
+    display: none;
   }
 
   .doodle-class-grid {

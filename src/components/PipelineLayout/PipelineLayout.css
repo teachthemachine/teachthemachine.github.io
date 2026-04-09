@@ -1,10 +1,11 @@
 .pipeline-workspace {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - var(--header-height));
+  height: 100%;
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
+  min-height: 0;
 }
 
 /* ---- Stepper Header ---- */
@@ -12,9 +13,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-3) var(--space-4);
   gap: var(--space-3);
   flex-shrink: 0;
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  margin-bottom: var(--space-3);
 }
 
 .pipeline-step {
@@ -80,11 +87,10 @@
 .pipeline-content-container {
   flex: 1;
   position: relative;
-  /* Do NOT set overflow:hidden here — it would clip rounded card corners */
   display: flex;
   justify-content: center;
-  padding: 0 var(--space-5);
-  min-height: 0; /* Required for flex children to scroll */
+  padding: 0 var(--space-2);
+  min-height: 0;
 }
 
 .pipeline-content-viewport {
@@ -92,20 +98,22 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* clips at viewport, but children get their own scroll */
+  overflow: hidden;
+  min-height: 0;
 }
 
-/* Activity panel fills viewport */
 .pipeline-content-viewport > .activity-panel {
   flex: 1;
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
+  min-height: 0;
 }
 
 .pipeline-content-viewport > .activity-panel > .panel {
   height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 /* ---- Navigation Footer — floating pill tray ---- */
@@ -114,24 +122,72 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-3) var(--space-4);
-  margin: var(--space-4) var(--space-5) var(--space-5);
-  background: var(--color-surface);
+  margin: var(--space-3) var(--space-2) var(--space-3);
+  background: color-mix(in srgb, var(--color-surface) 80%, transparent);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-md);
   flex-shrink: 0;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+@media (max-width: 900px) {
+  .pipeline-stepper {
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .step-connector {
+    width: 28px;
+    margin-left: var(--space-2);
+    margin-right: var(--space-1);
+  }
+
+  .pipeline-footer {
+    padding: var(--space-2) var(--space-3);
+    margin: var(--space-2);
+  }
 }
 
 @media (max-width: 600px) {
   .pipeline-stepper {
     flex-direction: column;
     align-items: flex-start;
+    padding: var(--space-2) var(--space-3);
   }
+
+  .pipeline-step {
+    font-size: var(--text-xs);
+  }
+
+  .step-number {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
   .step-connector {
     width: 2px;
-    height: 16px;
-    margin-left: 13px;
-    margin-top: 4px;
-    margin-bottom: 4px;
+    height: 12px;
+    margin-left: 11px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .pipeline-footer {
+    margin: var(--space-2);
+    padding: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .pipeline-footer .btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: 11px;
+  }
+
+  .pipeline-footer .btn .material-symbols-rounded {
+    font-size: 16px;
   }
 }

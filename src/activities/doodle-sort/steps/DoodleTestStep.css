@@ -1,13 +1,16 @@
 .doodle-preview-body {
   align-items: center;
+  justify-content: center;
+  overflow: auto;
 }
 
 .doodle-test-stage {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(260px, 320px) minmax(220px, 1fr);
-  gap: var(--space-4);
+  grid-template-columns: minmax(200px, 280px) minmax(200px, 320px);
+  gap: var(--space-3);
   align-items: start;
+  justify-content: center;
 }
 
 .doodle-test-canvas-wrapper {
@@ -38,8 +41,8 @@
 .doodle-test-machine-view {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-4);
+  gap: var(--space-2);
+  padding: var(--space-3);
   background: var(--color-bg-raised);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
@@ -67,7 +70,7 @@
 
 .doodle-test-machine-view img {
   width: 100%;
-  max-width: 220px;
+  max-width: 160px;
   align-self: center;
   aspect-ratio: 1;
   object-fit: contain;
@@ -77,7 +80,7 @@
 }
 
 .doodle-test-machine-placeholder {
-  padding: var(--space-5);
+  padding: var(--space-4);
   border: 2px dashed var(--color-border);
   border-radius: var(--radius-lg);
   text-align: center;
@@ -92,8 +95,33 @@
   font-size: var(--text-sm);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 760px) {
   .doodle-test-stage {
     grid-template-columns: 1fr;
+    gap: var(--space-2);
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .doodle-test-machine-view {
+    padding: var(--space-2);
+  }
+
+  .doodle-test-machine-view-header h4 {
+    font-size: var(--text-sm);
+  }
+
+  .doodle-test-machine-view-header p {
+    font-size: 11px;
+  }
+}
+
+@media (max-height: 720px) {
+  .doodle-test-stage {
+    grid-template-columns: minmax(160px, 220px) minmax(180px, 280px);
+  }
+
+  .doodle-test-machine-view img {
+    max-width: 120px;
   }
 }

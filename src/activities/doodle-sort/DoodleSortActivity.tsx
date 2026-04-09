@@ -82,7 +82,7 @@ export function DoodleSortActivity({ onNextMission }: Props) {
       )}
       {currentStep === 1 && (
         <div className="activity-panel" style={{ height: '100%', justifyContent: 'center' }}>
-          <div className="panel" style={{ flex: 'none', padding: 'var(--space-6)' }}>
+          <div className="panel" style={{ flex: 'none', padding: 'var(--space-4)', width: '100%', maxWidth: '1200px' }}>
             <DoodleTrainStep
               examples={examples}
               model={modelRef.current}

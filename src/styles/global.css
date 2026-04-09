@@ -25,6 +25,11 @@ body {
   background-color: var(--color-bg);
   transition: background-color var(--transition-theme), color var(--transition-theme);
   min-height: 100vh;
+  background-image:
+    radial-gradient(circle at top left, rgba(173, 198, 255, 0.2), transparent 26%),
+    radial-gradient(circle at 85% 18%, rgba(208, 188, 255, 0.16), transparent 20%),
+    radial-gradient(circle at 70% 78%, rgba(255, 185, 95, 0.12), transparent 22%);
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -82,9 +87,11 @@ select {
 /* ---- Panel Card ---- */
 .panel {
   background: var(--color-surface);
-  border-radius: var(--radius-lg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-panel);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-hover);
 }
 
 /* ---- Scrollbar ---- */
@@ -158,10 +165,11 @@ select {
   justify-content: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-5);
-  font-family: var(--font-sans);
-  font-weight: 600;
+  font-family: var(--font-label);
+  font-weight: 700;
   font-size: var(--text-sm);
-  border-radius: var(--radius-md);
+  letter-spacing: 0.01em;
+  border-radius: var(--radius-full);
   border: 1px solid transparent;
   transition: all var(--transition-fast);
   cursor: pointer;
@@ -189,12 +197,11 @@ select {
 }
 
 .btn-primary {
-  background: var(--color-primary);
-  background: linear-gradient(180deg, var(--color-primary) 0%, color-mix(in srgb, var(--color-primary) 85%, black) 100%);
-  color: #fff;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 70%, black);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), var(--shadow-sm);
-  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, var(--color-primary) 0%, color-mix(in srgb, var(--color-primary) 70%, var(--color-accent)) 100%);
+  color: var(--color-text-inverse);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--color-primary) 24%, transparent);
+  text-shadow: none;
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -202,12 +209,11 @@ select {
 }
 
 .btn-accent {
-  background: var(--color-accent);
-  background: linear-gradient(180deg, var(--color-accent) 0%, color-mix(in srgb, var(--color-accent) 85%, black) 100%);
-  color: #fff;
-  border: 1px solid color-mix(in srgb, var(--color-accent) 70%, black);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), var(--shadow-sm);
-  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, var(--color-accent) 0%, color-mix(in srgb, var(--color-accent) 72%, var(--color-primary)) 100%);
+  color: var(--color-text-inverse);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--color-accent) 24%, transparent);
+  text-shadow: none;
 }
 
 .btn-sm {

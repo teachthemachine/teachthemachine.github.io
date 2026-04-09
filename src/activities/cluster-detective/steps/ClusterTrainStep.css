@@ -1,9 +1,10 @@
 .cluster-train {
   display: flex;
   height: 100%;
-  gap: var(--space-5);
+  gap: var(--space-4);
   padding: var(--space-4);
-  overflow: hidden;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 /* ---- Canvas ---- */
@@ -183,4 +184,40 @@
   font-size: 16px;
   flex-shrink: 0;
   margin-top: 1px;
+}
+
+@media (max-width: 900px) {
+  .cluster-train {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .cluster-train-info {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .cluster-legend,
+  .kmeans-explainer {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .cluster-train-canvas-outer {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cluster-train {
+    padding: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .cluster-legend,
+  .kmeans-explainer {
+    padding: var(--space-3);
+  }
 }

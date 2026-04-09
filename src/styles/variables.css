@@ -6,93 +6,106 @@
 /* ---- Sunny Theme (default) ---- */
 :root,
 [data-theme="sunny"] {
-  --color-bg: #f0f2f5;
-  --color-bg-raised: #e4e6ea;
+  --color-bg: #ecf1ff;
+  --color-bg-raised: #dde5fb;
   --color-surface: #ffffff;
-  --color-surface-hover: #f7f8fa;
-  --color-surface-active: #eef0f4;
-  --color-border: rgba(0, 0, 0, 0.08);
-  --color-border-hover: rgba(0, 0, 0, 0.16);
+  --color-surface-hover: #f5f8ff;
+  --color-surface-active: #edf2ff;
+  --color-border: rgba(34, 58, 117, 0.22);
+  --color-border-hover: rgba(34, 58, 117, 0.36);
 
   /* Brand */
-  --color-primary: #4285f4;
-  --color-primary-soft: rgba(66, 133, 244, 0.10);
-  --color-primary-medium: rgba(66, 133, 244, 0.20);
-  --color-safe: #34a853;
-  --color-safe-soft: rgba(52, 168, 83, 0.10);
-  --color-safe-medium: rgba(52, 168, 83, 0.18);
-  --color-danger: #ea4335;
-  --color-danger-soft: rgba(234, 67, 53, 0.10);
-  --color-danger-medium: rgba(234, 67, 53, 0.18);
-  --color-accent: #7c5cfc;
-  --color-accent-soft: rgba(124, 92, 252, 0.10);
-  --color-warning: #fbbc04;
-  --color-warning-soft: rgba(251, 188, 4, 0.12);
+  --color-primary: #4d8eff;
+  --color-primary-soft: rgba(77, 142, 255, 0.16);
+  --color-primary-medium: rgba(77, 142, 255, 0.28);
+  --color-safe: #3ccf88;
+  --color-safe-soft: rgba(60, 207, 136, 0.16);
+  --color-safe-medium: rgba(60, 207, 136, 0.28);
+  --color-danger: #ff6f8f;
+  --color-danger-soft: rgba(255, 111, 143, 0.16);
+  --color-danger-medium: rgba(255, 111, 143, 0.28);
+  --color-accent: #8d73ff;
+  --color-accent-soft: rgba(141, 115, 255, 0.16);
+  --color-warning: #ffb95f;
+  --color-warning-soft: rgba(255, 185, 95, 0.2);
 
   /* Text */
-  --color-text: #202124;
-  --color-text-secondary: #5f6368;
-  --color-text-muted: #9aa0a6;
+  --color-text: #0f1b3d;
+  --color-text-secondary: #374e84;
+  --color-text-muted: #5e719f;
   --color-text-inverse: #ffffff;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.10);
-  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.10), 0 8px 32px rgba(0, 0, 0, 0.06);
-  --shadow-panel: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 8px 20px rgba(56, 74, 140, 0.14);
+  --shadow-md: 0 16px 40px rgba(56, 74, 140, 0.18);
+  --shadow-lg: 0 24px 72px rgba(56, 74, 140, 0.24);
+  --shadow-panel: 0 10px 30px rgba(56, 74, 140, 0.16);
 
   /* Connector lines */
   --color-connector: #dadce0;
   --color-connector-active: #4285f4;
+
+  /* Doodle Sort — saturated launch-pad / class accents (readable on light bg) */
+  --doodle-launch-green: #0a8f54;
+  --doodle-launch-blue: #1560d1;
+  --doodle-launch-amber: #c2410c;
+  --doodle-launch-rose: #d92652;
 }
 
 /* ---- Midnight Theme ---- */
 [data-theme="midnight"] {
-  --color-bg: #0f1118;
-  --color-bg-raised: #181b25;
-  --color-surface: #1e2233;
-  --color-surface-hover: #262b3e;
-  --color-surface-active: #2e3449;
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-border-hover: rgba(255, 255, 255, 0.14);
+  --color-bg: #0f1320;
+  --color-bg-raised: rgba(27, 31, 45, 0.82);
+  --color-surface: rgba(37, 42, 55, 0.9);
+  --color-surface-hover: rgba(48, 52, 67, 0.94);
+  --color-surface-active: rgba(53, 57, 71, 0.98);
+  --color-border: rgba(194, 198, 214, 0.2);
+  --color-border-hover: rgba(194, 198, 214, 0.32);
 
   /* Brand */
-  --color-primary: #6ea8fe;
-  --color-primary-soft: rgba(110, 168, 254, 0.12);
-  --color-primary-medium: rgba(110, 168, 254, 0.22);
-  --color-safe: #57d28c;
-  --color-safe-soft: rgba(87, 210, 140, 0.12);
-  --color-safe-medium: rgba(87, 210, 140, 0.20);
-  --color-danger: #ff6b6b;
-  --color-danger-soft: rgba(255, 107, 107, 0.12);
-  --color-danger-medium: rgba(255, 107, 107, 0.20);
-  --color-accent: #a78bfa;
-  --color-accent-soft: rgba(167, 139, 250, 0.12);
-  --color-warning: #fbbf24;
-  --color-warning-soft: rgba(251, 191, 36, 0.14);
+  --color-primary: #adc6ff;
+  --color-primary-soft: rgba(173, 198, 255, 0.12);
+  --color-primary-medium: rgba(173, 198, 255, 0.22);
+  --color-safe: #76e1a5;
+  --color-safe-soft: rgba(118, 225, 165, 0.14);
+  --color-safe-medium: rgba(118, 225, 165, 0.24);
+  --color-danger: #ff8aa4;
+  --color-danger-soft: rgba(255, 138, 164, 0.14);
+  --color-danger-medium: rgba(255, 138, 164, 0.24);
+  --color-accent: #d0bcff;
+  --color-accent-soft: rgba(208, 188, 255, 0.14);
+  --color-warning: #ffb95f;
+  --color-warning-soft: rgba(255, 185, 95, 0.18);
 
   /* Text */
-  --color-text: #e8eaf6;
-  --color-text-secondary: #a0a8c0;
-  --color-text-muted: #6b7394;
+  --color-text: #dfe1f4;
+  --color-text-secondary: #c2c6d6;
+  --color-text-muted: #8c909f;
   --color-text-inverse: #0f1118;
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.40);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.50);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.60);
-  --shadow-panel: 0 2px 8px rgba(0, 0, 0, 0.30);
+  --shadow-sm: 0 10px 24px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 20px 50px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 30px 90px rgba(0, 0, 0, 0.46);
+  --shadow-panel: 0 16px 40px rgba(0, 0, 0, 0.30);
 
   /* Connector lines */
   --color-connector: #2e3449;
   --color-connector-active: #6ea8fe;
+
+  /* Doodle Sort — higher-chroma accents on dark UI */
+  --doodle-launch-green: #4ade80;
+  --doodle-launch-blue: #60a5fa;
+  --doodle-launch-amber: #fbbf24;
+  --doodle-launch-rose: #fb7185;
 }
 
 /* ---- Shared Tokens ---- */
 :root {
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-label: 'Space Grotesk', 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
 
   --text-xs: 0.7rem;
@@ -145,7 +158,8 @@
 
   /* Layout */
   --max-width: 1440px;
-  --header-height: 56px;
+  --header-height: 72px;
+  --footer-height: 78px;
   --panel-gap: 24px;
 }
 
@@ -153,7 +167,8 @@
   :root {
     --text-3xl: 1.5rem;
     --text-4xl: 2rem;
-    --header-height: 52px;
+    --header-height: 64px;
+    --footer-height: 88px;
     --panel-gap: 16px;
   }
 }

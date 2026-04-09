@@ -115,6 +115,11 @@ export function DoodleCollectStep({ examples, onAddExample, onClearExamples }: D
     (shape) => shape.examples.length >= MIN_DOODLES_PER_CLASS
   ).length;
 
+  const shapeUp = examplesByClass.find((s) => s.direction === 'up')!;
+  const shapeLeft = examplesByClass.find((s) => s.direction === 'left')!;
+  const shapeRight = examplesByClass.find((s) => s.direction === 'right')!;
+  const shapeDown = examplesByClass.find((s) => s.direction === 'down')!;
+
   useEffect(() => {
     const keyToLabel: Record<string, DoodleLabel> = {
       ArrowUp: 'Square',
@@ -154,59 +159,92 @@ export function DoodleCollectStep({ examples, onAddExample, onClearExamples }: D
         </div>
 
         <div className="doodle-stage-arena">
-          {examplesByClass.map((shape) => (
-            <button
-              key={shape.label}
-              className={`doodle-sort-target doodle-sort-target-${shape.direction}`}
-              style={{ '--doodle-color': shape.color } as CSSProperties}
-              onClick={() => handleSort(shape.label)}
-              disabled={!hasDrawn}
-              title={`${shape.label} (${shape.arrowIcon.replace('keyboard_', '').replace('_', ' ')})`}
-            >
-              <span className="material-symbols-rounded doodle-sort-target-arrow">{shape.arrowIcon}</span>
-              <div className="doodle-sort-target-main">
-                <span className="material-symbols-rounded doodle-sort-target-icon">{shape.icon}</span>
-                <span>{shape.label}</span>
-              </div>
-              <kbd className="doodle-sort-hotkey">
-                {shape.direction === 'up' ? 'Up' : shape.direction === 'down' ? 'Down' : shape.direction === 'left' ? 'Left' : 'Right'}
-              </kbd>
-              <span className="doodle-sort-target-count">{shape.examples.length}</span>
-            </button>
-          ))}
-
-          <div className="doodle-canvas-stage">
-            <div className={`doodle-canvas-wrapper ${isDrawing ? 'is-drawing' : ''}`}>
-              {!hasDrawn && (
-                <div className="doodle-canvas-hint">
-                  Sketch your shape here.
-                  <span>Use the launch pads around the canvas to file it.</span>
-                </div>
-              )}
-              <canvas
-                ref={canvasRef}
-                className="doodle-canvas"
-                width={224}
-                height={224}
-                onPointerDown={startDrawing}
-                onPointerMove={draw}
-                onPointerUp={stopDrawing}
-                onPointerLeave={stopDrawing}
-              />
-            </div>
-
-            <p className="doodle-stage-tip">
-              Want to fool the AI later? Vary size, wobble, and stroke thickness so each class has personality.
-            </p>
-
-            <div className="doodle-stage-toolbar">
-              <button className="btn btn-sm" onClick={clearCanvas} disabled={!hasDrawn}>
-                Clear canvas
+          <div className="doodle-arena-cross-surface">
+            <div className="doodle-arena-cross">
+              <button
+                type="button"
+                className="doodle-cross-pad doodle-cross-pad-up"
+                style={{ '--doodle-color': shapeUp.color } as CSSProperties}
+                onClick={() => handleSort(shapeUp.label)}
+                disabled={!hasDrawn}
+                title={`${shapeUp.label} — arrow up`}
+              >
+                <span className="material-symbols-rounded doodle-cross-pad-arrow">{shapeUp.arrowIcon}</span>
+                <span className="material-symbols-rounded doodle-cross-pad-icon">{shapeUp.icon}</span>
+                <span className="doodle-cross-pad-count">{shapeUp.examples.length}</span>
               </button>
-              <span className="doodle-stage-toolbar-note">
-                Use arrow keys to sort. Train unlocks after {MIN_DOODLES_PER_CLASS} examples in every direction.
-              </span>
+
+              <button
+                type="button"
+                className="doodle-cross-pad doodle-cross-pad-left"
+                style={{ '--doodle-color': shapeLeft.color } as CSSProperties}
+                onClick={() => handleSort(shapeLeft.label)}
+                disabled={!hasDrawn}
+                title={`${shapeLeft.label} — arrow left`}
+              >
+                <span className="material-symbols-rounded doodle-cross-pad-icon">{shapeLeft.icon}</span>
+                <span className="doodle-cross-pad-count">{shapeLeft.examples.length}</span>
+              </button>
+
+              <div className="doodle-cross-canvas-cell">
+                <div className={`doodle-canvas-wrapper ${isDrawing ? 'is-drawing' : ''}`}>
+                  {!hasDrawn && (
+                    <div className="doodle-canvas-hint">
+                      Sketch your shape here.
+                      <span>Use the launch pads around the canvas to file it.</span>
+                    </div>
+                  )}
+                  <canvas
+                    ref={canvasRef}
+                    className="doodle-canvas"
+                    width={224}
+                    height={224}
+                    onPointerDown={startDrawing}
+                    onPointerMove={draw}
+                    onPointerUp={stopDrawing}
+                    onPointerLeave={stopDrawing}
+                  />
+                </div>
+              </div>
+
+              <button
+                type="button"
+                className="doodle-cross-pad doodle-cross-pad-right"
+                style={{ '--doodle-color': shapeRight.color } as CSSProperties}
+                onClick={() => handleSort(shapeRight.label)}
+                disabled={!hasDrawn}
+                title={`${shapeRight.label} — arrow right`}
+              >
+                <span className="material-symbols-rounded doodle-cross-pad-icon">{shapeRight.icon}</span>
+                <span className="doodle-cross-pad-count">{shapeRight.examples.length}</span>
+              </button>
+
+              <button
+                type="button"
+                className="doodle-cross-pad doodle-cross-pad-down"
+                style={{ '--doodle-color': shapeDown.color } as CSSProperties}
+                onClick={() => handleSort(shapeDown.label)}
+                disabled={!hasDrawn}
+                title={`${shapeDown.label} — arrow down`}
+              >
+                <span className="material-symbols-rounded doodle-cross-pad-arrow">{shapeDown.arrowIcon}</span>
+                <span className="material-symbols-rounded doodle-cross-pad-icon">{shapeDown.icon}</span>
+                <span className="doodle-cross-pad-count">{shapeDown.examples.length}</span>
+              </button>
             </div>
+          </div>
+
+          <p className="doodle-stage-tip">
+            Want to fool the AI later? Vary size, wobble, and stroke thickness so each class has personality.
+          </p>
+
+          <div className="doodle-stage-toolbar">
+            <button type="button" className="btn btn-sm" onClick={clearCanvas} disabled={!hasDrawn}>
+              Clear canvas
+            </button>
+            <span className="doodle-stage-toolbar-note">
+              Use arrow keys to sort. Train unlocks after {MIN_DOODLES_PER_CLASS} examples in every direction.
+            </span>
           </div>
         </div>
       </div>

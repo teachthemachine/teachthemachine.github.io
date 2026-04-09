@@ -4,7 +4,8 @@
   height: 100%;
   gap: var(--space-4);
   padding: var(--space-4);
-  overflow: hidden;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .mic-meter-bar {
@@ -158,4 +159,55 @@
 }
 .btn-clear:hover {
   background: var(--color-danger-soft);
+}
+
+@media (max-width: 900px) {
+  .sound-gather {
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .sound-buckets {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .sound-bucket {
+    padding: var(--space-3);
+  }
+}
+
+@media (max-width: 600px) {
+  .sound-gather {
+    padding: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .mic-meter-bar {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .bucket-title {
+    font-size: var(--text-sm);
+  }
+
+  .bucket-icon {
+    font-size: 20px;
+  }
+}
+
+@media (max-height: 700px) {
+  .sound-gather {
+    padding: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .sound-bucket {
+    padding: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .waveform-canvas {
+    height: 22px;
+  }
 }
