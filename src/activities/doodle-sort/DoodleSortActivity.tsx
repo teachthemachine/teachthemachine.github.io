@@ -7,17 +7,18 @@ import { DoodleTestStep } from './steps/DoodleTestStep';
 import { PipelineLayout } from '../../components/PipelineLayout/PipelineLayout';
 import { MissionIntro } from '../../components/MissionIntro/MissionIntro';
 import type { DoodleExample } from './steps/DoodleCollectStep';
+import { DOODLE_CLASSES, MIN_DOODLES_PER_CLASS, type DoodleLabel } from './config';
 
 const STEPS = ['Gather Data', 'Train Model', 'Test & Trick'];
 
 const DOODLE_MISSION_DATA = {
   missionNumber: 3,
   title: 'Doodle Sort',
-  tagline: 'Can you teach a computer to see the difference between shapes?',
-  goalStatement: 'You will draw circles and triangles by hand, then train the machine to tell them apart by looking at pixel patterns — just like computer vision.',
-  whyItMatters: 'Computer vision powers self-driving cars, medical imaging, face recognition, and more. Every visual AI starts with the same question: what patterns separate one thing from another?',
-  modelName: 'K-Nearest Neighbors (KNN) + MobileNet',
-  modelAnalogy: 'MobileNet acts like a pair of X-ray glasses — it turns your doodle into a long list of invisible numbers. Then KNN asks: "which of my saved examples does this number-list look most similar to?"',
+  tagline: 'Can you teach a computer to sort four doodle families by sight?',
+  goalStatement: 'You will sketch circles, squares, triangles, and stars, then teach the machine to separate them by their pixel patterns and visual features.',
+  whyItMatters: 'Computer vision powers self-driving cars, medical imaging, face recognition, and more. Every visual AI starts by learning which visual patterns make one object belong to a different class than another.',
+  modelName: 'K-Nearest Neighbors (KNN) on a Pixel Grid',
+  modelAnalogy: 'The computer shrinks each doodle into a simple centered grid of dark and light pixels. Then KNN asks: "which saved examples have the most similar pixel pattern to this new doodle?"',
   modelIcon: 'visibility',
   steps: STEPS,
 };
@@ -38,17 +39,18 @@ export function DoodleSortActivity({ onNextMission }: Props) {
     if (isTrained) setIsTrained(false);
   }, [isTrained]);
 
-  const handleClearExamples = useCallback((label: string) => {
+  const handleClearExamples = useCallback((label: DoodleLabel) => {
     setExamples(prev => prev.filter(e => e.label !== label));
     if (isTrained) setIsTrained(false);
   }, [isTrained]);
 
   const handleTrained = useCallback(() => setIsTrained(true), []);
 
-  const countA = examples.filter(e => e.label === 'Circle').length;
-  const countB = examples.filter(e => e.label === 'Triangle').length;
+  const canGatherProceed = DOODLE_CLASSES.every(
+    ({ label }) => examples.filter((example) => example.label === label).length >= MIN_DOODLES_PER_CLASS
+  );
   const canProceed = currentStep === 0
-    ? countA >= 2 && countB >= 2
+    ? canGatherProceed
     : currentStep === 1 ? isTrained : true;
 
   if (!started) {

@@ -1,0 +1,199 @@
+.doodle-train-class-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.doodle-train-class-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid color-mix(in srgb, var(--doodle-color) 30%, var(--color-border));
+  background: color-mix(in srgb, var(--doodle-color) 10%, white);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+.doodle-train-class-chip .material-symbols-rounded,
+.doodle-train-class-chip strong {
+  color: var(--doodle-color);
+}
+
+.doodle-train-live {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 360px);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.doodle-vision-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+}
+
+.doodle-vision-panel-complete {
+  margin-top: var(--space-4);
+  width: min(100%, 980px);
+  align-self: center;
+}
+
+.doodle-vision-header {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  text-align: left;
+}
+
+.doodle-vision-header .material-symbols-rounded {
+  color: var(--color-primary);
+}
+
+.doodle-vision-header h4 {
+  margin: 0;
+  font-size: var(--text-base);
+}
+
+.doodle-vision-header p {
+  margin: 4px 0 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.doodle-vision-active {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.doodle-vision-preview-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.doodle-vision-preview-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.doodle-vision-caption {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.doodle-vision-metrics {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  padding-top: var(--space-1);
+}
+
+.doodle-vision-metrics > div {
+  padding: var(--space-3);
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.doodle-vision-metric-label {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.doodle-vision-empty {
+  padding: var(--space-5);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.doodle-vision-gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 180px));
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+.doodle-vision-gallery-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: white;
+  border-radius: var(--radius-xl);
+  border-top: 3px solid var(--doodle-color);
+}
+
+.doodle-vision-gallery-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--doodle-color);
+  font-weight: 700;
+}
+
+.doodle-vision-gallery-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.doodle-vision-gallery-pair img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.doodle-vision-gallery-note {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+@media (max-width: 960px) {
+  .doodle-train-live {
+    grid-template-columns: 1fr;
+  }
+
+  .doodle-train-class-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .doodle-train-class-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doodle-vision-active,
+  .doodle-vision-metrics {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,15 +1,99 @@
-.doodle-test-canvas-wrapper {
-  background: white;
-  border: 2px solid var(--color-primary);
-  border-radius: var(--radius-md);
-  cursor: crosshair;
+.doodle-preview-body {
+  align-items: center;
+}
+
+.doodle-test-stage {
   width: 100%;
-  max-width: 280px;
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(220px, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.doodle-test-canvas-wrapper {
+  background: linear-gradient(180deg, var(--color-bg-raised), white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3);
+  width: 100%;
   aspect-ratio: 1;
+  box-shadow: var(--shadow-sm);
+}
+
+.doodle-test-canvas-wrapper.is-drawing {
+  box-shadow: 0 0 0 3px var(--color-primary-soft), var(--shadow-md);
 }
 
 .doodle-test-canvas-wrapper canvas {
   width: 100%;
   height: 100%;
-  border-radius: calc(var(--radius-md) - 2px);
+  display: block;
+  border-radius: calc(var(--radius-xl) - 4px);
+  border: 2px dashed var(--color-border);
+  background: white;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.doodle-test-machine-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.doodle-test-machine-view-header {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.doodle-test-machine-view-header .material-symbols-rounded {
+  color: var(--color-primary);
+}
+
+.doodle-test-machine-view-header h4 {
+  margin: 0;
+}
+
+.doodle-test-machine-view-header p {
+  margin: 4px 0 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.doodle-test-machine-view img {
+  width: 100%;
+  max-width: 220px;
+  align-self: center;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.doodle-test-machine-placeholder {
+  padding: var(--space-5);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.doodle-test-machine-metric {
+  margin: 0;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 900px) {
+  .doodle-test-stage {
+    grid-template-columns: 1fr;
+  }
 }
