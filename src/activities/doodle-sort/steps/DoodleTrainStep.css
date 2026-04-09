@@ -1,3 +1,10 @@
+/* Root panel: stack from top so long “training complete” content never centers over itself */
+.train-panel-animated.doodle-train-panel {
+  justify-content: flex-start;
+  align-items: stretch;
+  min-height: 0;
+}
+
 .doodle-train-class-grid {
   width: 100%;
   display: grid;
@@ -13,7 +20,7 @@
   padding: 6px 10px;
   border-radius: var(--radius-full);
   border: 1px solid color-mix(in srgb, var(--doodle-color) 30%, var(--color-border));
-  background: color-mix(in srgb, var(--doodle-color) 10%, white);
+  background: color-mix(in srgb, var(--doodle-color) 12%, var(--color-surface));
   color: var(--color-text);
   font-size: var(--text-sm);
 }
@@ -25,9 +32,11 @@
 
 .doodle-train-live {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
   gap: var(--space-4);
   align-items: start;
+  min-width: 0;
+  width: 100%;
 }
 
 .doodle-vision-panel {
@@ -35,16 +44,65 @@
   flex-direction: column;
   gap: var(--space-4);
   width: 100%;
+  min-width: 0;
   background: var(--color-bg-raised);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-4);
+  position: relative;
+  z-index: 0;
 }
 
 .doodle-vision-panel-complete {
-  margin-top: var(--space-4);
-  width: min(100%, 900px);
+  margin-top: var(--space-5);
+  width: 100%;
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: stretch;
+  box-sizing: border-box;
+}
+
+/* Training complete: full-width column flow — no centered flex shrink that stacks panels */
+.doodle-train-complete {
+  width: 100%;
+  align-items: stretch;
+  text-align: center;
+  padding-top: var(--doodle-complete-top-padding, var(--space-4));
+}
+
+.doodle-train-complete > .material-symbols-rounded,
+.doodle-train-complete > h3,
+.doodle-train-complete > p {
   align-self: center;
+  max-width: 36rem;
+}
+
+.doodle-train-complete > .train-stats-cards {
+  align-self: center;
+}
+
+.doodle-train-complete > .doodle-train-class-grid {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.doodle-train-complete > .doodle-vision-panel-complete {
+  text-align: left;
+}
+
+.doodle-train-complete > .btn {
+  align-self: center;
+}
+
+.doodle-train-complete .doodle-vision-gallery {
+  grid-template-columns: repeat(auto-fit, minmax(var(--doodle-gallery-min, 130px), 1fr));
+  gap: var(--doodle-gallery-gap, var(--space-2));
+}
+
+.doodle-train-complete .doodle-vision-gallery-card {
+  padding: var(--doodle-gallery-card-padding, var(--space-2));
 }
 
 .doodle-vision-header {
