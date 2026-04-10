@@ -1,8 +1,20 @@
-/* Root panel: stack from top so long “training complete” content never centers over itself */
+/* The activity-panel is the scroll container (overflow: auto from PipelineLayout).
+   Padding and top-align ensure tall training-complete content never overflows visually. */
+.doodle-train-activity-panel {
+  overflow-y: auto !important;
+  padding: var(--space-4);
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+/* Root card: top-aligned, full width, not centered vertically */
 .train-panel-animated.doodle-train-panel {
   justify-content: flex-start;
   align-items: stretch;
-  min-height: 0;
+  min-height: unset;
+  width: 100%;
+  max-width: 900px;
+  box-sizing: border-box;
 }
 
 .doodle-train-class-grid {
@@ -96,13 +108,11 @@
   align-self: center;
 }
 
+/* Gallery fills all available columns and wraps naturally — no JS sizing needed */
 .doodle-train-complete .doodle-vision-gallery {
-  grid-template-columns: repeat(auto-fit, minmax(var(--doodle-gallery-min, 130px), 1fr));
-  gap: var(--doodle-gallery-gap, var(--space-2));
-}
-
-.doodle-train-complete .doodle-vision-gallery-card {
-  padding: var(--doodle-gallery-card-padding, var(--space-2));
+  grid-template-columns: repeat(auto-fill, minmax(min(130px, 100%), 1fr));
+  gap: var(--space-2);
+  justify-content: start;
 }
 
 .doodle-vision-header {

@@ -129,10 +129,6 @@ export function DoodleTrainStep({ model, examples, isTrained, onTrained }: Doodl
     ? examples.find((example) => example.id === activeExampleId) ?? null
     : null;
   const activeSnapshot = activeExampleId ? visionSnapshots[activeExampleId] : null;
-  const completeGalleryMin = Math.max(96, 164 - Math.max(0, examples.length - 8) * 3);
-  const completeGalleryGap = examples.length > 16 ? 6 : 8;
-  const completeCardPadding = examples.length > 16 ? 6 : 8;
-  const completeTopPadding = examples.length > 12 ? 'var(--space-5)' : 'var(--space-4)';
 
   return (
     <div className="train-panel-animated doodle-train-panel">
@@ -237,14 +233,6 @@ export function DoodleTrainStep({ model, examples, isTrained, onTrained }: Doodl
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.35 }}
-          style={
-            {
-              '--doodle-gallery-min': `${completeGalleryMin}px`,
-              '--doodle-gallery-gap': `${completeGalleryGap}px`,
-              '--doodle-gallery-card-padding': `${completeCardPadding}px`,
-              '--doodle-complete-top-padding': completeTopPadding,
-            } as React.CSSProperties
-          }
         >
           <span className="material-symbols-rounded" style={{ fontSize: '48px', color: 'var(--color-safe)' }}>verified</span>
           <h3>Training Complete!</h3>
